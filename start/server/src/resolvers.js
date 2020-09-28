@@ -5,7 +5,8 @@ module.exports = {
     launch: (_, { id }, { dataSources }) =>
       dataSources.launchAPI.getLaunchById({ launchId: id }),
     me: (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser()
-  }
+  },
+
   Mission: {
     // The default size is 'LARGE' if not provided
     missionPatch: (mission, { size } = { size: 'LARGE' }) => {
@@ -14,4 +15,5 @@ module.exports = {
         : mission.missionPatchLarge;
     },
   },
+
 };
