@@ -12,3 +12,32 @@ export const GET_CART_ITEMS = gql`
   }
 `;
 ;
+
+interface CartProps extends RouteComponentProps {}
+
+const Cart: React.FC<CartProps> = () => {
+  const { data, loading, error } = useQuery<
+    GetCartItemsTypes.GetCartItems
+  >(GET_CART_ITEMS);
+
+  if (loading) return <Loading />;
+  if (error) return <p>ERROR: {error.message}</p>;
+
+  return (
+    <Fragment>
+      <Header>My Cart</Header>
+      {!data || !!data && data.cartItems.length === 0 ? (
+        <p data-testid="empty-message">No items in your cart</p>
+      ) : (
+        <Fragment>
+          {!!data && data.cartItems.map((launchId: any) => (
+            <CartItem key={launchId} launchId={launchId} />
+          ))}
+          <BookTrips cartItems={!!data ? data.cartItems : []} />
+        </Fragment>
+      )}
+    </Fragment>
+  );
+}
+
+export default Cart;
