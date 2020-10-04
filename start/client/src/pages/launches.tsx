@@ -5,6 +5,21 @@ import { LaunchTile, Header, Button, Loading } from '../components';
 import { RouteComponentProps } from '@reach/router';
 import * as GetLaunchListTypes from './__generated__/GetLaunchList';
 
+export const LAUNCH_TILE_DATA = gql`
+  fragment LaunchTile on Launch {
+    id
+    isBooked
+    rocket {
+      id
+      name
+    }
+    mission {
+      name
+      missionPatch
+    }
+  }
+`;
+
 const GET_LAUNCHES = gql`
   query launchList($after: String) {
     launches(after: $after) {
@@ -17,6 +32,8 @@ const GET_LAUNCHES = gql`
   }
   ${LAUNCH_TILE_DATA}
 `;
+
+
 
 interface LaunchesProps extends RouteComponentProps {}
 
@@ -80,17 +97,4 @@ const Launches: React.FC<LaunchesProps> = () => {
 
 export default Launches;
 
-export const LAUNCH_TILE_DATA = gql`
-  fragment LaunchTile on Launch {
-    id
-    isBooked
-    rocket {
-      id
-      name
-    }
-    mission {
-      name
-      missionPatch
-    }
-  }
-`;
+
