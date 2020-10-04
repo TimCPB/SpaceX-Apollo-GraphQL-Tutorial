@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { gql, useQuery } from '@apollo/client';
+
+import { Loading, Header, LaunchTile } from '../components';
+import { LAUNCH_TILE_DATA } from './launches';
 import { RouteComponentProps } from '@reach/router';
+import * as GetMyTripsTypes from './__generated__/GetMyTrips';
 
-interface ProfileProps extends RouteComponentProps {}
-
-const Profile: React.FC<ProfileProps> = () => {
-  return <div />;
-}
-
-export default Profile;
+export const GET_MY_TRIPS = gql`
+  query GetMyTrips {
+    me {
+      id
+      email
+      trips {
+        ...LaunchTile
+      }
+    }
+  }
+  ${LAUNCH_TILE_DATA}
+`;
