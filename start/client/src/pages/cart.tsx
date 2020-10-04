@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { gql, useQuery } from '@apollo/client';
+
+import { Header, Loading } from '../components';
+import { CartItem, BookTrips } from '../containers';
 import { RouteComponentProps } from '@reach/router';
+import * as GetCartItemsTypes from './__generated__/GetCartItems';
 
-interface CartProps extends RouteComponentProps {
-
-}
-
-const Cart: React.FC<CartProps> = () => {
-  return <div />;
-}
-
-export default Cart;
+export const GET_CART_ITEMS = gql`
+  query GetCartItems {
+    cartItems @client
+  }
+`;
+;
